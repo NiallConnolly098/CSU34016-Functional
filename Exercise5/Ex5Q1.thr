@@ -1,0 +1,37 @@
+THEORY Ex5Q1
+IMPORT-THEORY Equality
+IMPORT-THEORY Boolean
+IMPORT-THEORY Arithmetic
+IMPORT-THEORY List
+IMPORT-HASKELL List
+IMPORT-HASKELL Ex5
+
+THEOREM ex5q1
+
+   (1 * 1) * (0 + (x * (y + z))) == (0 + ((y + z) * x)) - (0 + 0)
+
+STRATEGY ReduceBoth
+  LHS
+    (1 * 1) * (0 + (x * (y + z)))
+    = SIMP
+    1 * (0 + (x * (y + z)))
+    = LAW mul_left_unit l2r @ *
+    0 + (x * (y + z))
+    = LAW add_left_unit @ +
+    x * (y+z)
+
+  RHS
+    (0 + ((y + z) * x)) - (0 + 0)
+    = SIMP
+    (0 + ((y + z) * x)) - 0
+    = LAW sub_right_unit
+    0 + ((y + z) * x)
+    = LAW add_left_unit @ +
+    (y + z) * x
+    = LAW mul_symm
+    x * (y+z)
+
+END ReduceBoth
+
+QED ex5q1
+
